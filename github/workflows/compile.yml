@@ -1,0 +1,27 @@
+name: Compile 3DS Package
+
+on:
+  push:
+    branches: [ "main", "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project files
+        uses: actions/checkout@v4
+
+      - name: Force Fetch Live LoveBrew Compiler
+        uses: lovebrew/lovebrew-build-action@main
+        with:
+          game: 'game.love'
+          title: 'THE FALL OF THE PIG KING'
+          author: 'Artist'
+          description: 'An UNDERTALE x MOTHER 3 Engine'
+          icon: 'icon.png'
+
+      - name: Save CIA Installation Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PigKing_3DS_Installation
+          path: '*.cia'
